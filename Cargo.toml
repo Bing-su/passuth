@@ -13,8 +13,9 @@ pyo3 = { version = "*", features = [
     "extension-module",
     "abi3-py39",
     "generate-import-lib",
+    "auto-initialize",
 ] }
-password-auth = { version = "*", features = ["pbkdf2", "scrypt"] }
+password-auth = { version = "*", features = ["argon2", "pbkdf2", "scrypt"] }
 
 [profile.release]
 strip = true

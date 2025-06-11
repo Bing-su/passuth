@@ -2,18 +2,29 @@
 name = "passuth"
 version = "0.1.0"
 authors = [{ name = "Dowon", email = "ks2515@naver.com" }]
+license = "MIT"
 requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Security",
+    "Topic :: Security :: Cryptography",
 ]
 keywords = ["password", "argon2"]
 dependencies = []
 
+[project.optional-dependencies]
+test = ["pytest", "pytest-pretty", "hypothesis"]
+
+[project.urls]
+source = "https://github.com/Bing-su/passuth"
+
+[project.scripts]
+passuth = "passuth.__main__:main"
+
 [dependency-groups]
 dev = ["ruff", "pre-commit-uv"]
-test = ["pytest", "pytest-pretty", "hypothesis"]
 
 [build-system]
 requires = ["maturin>=1.8,<2.0"]
@@ -23,7 +34,6 @@ build-backend = "maturin"
 python-source = "python"
 features = ["pyo3/extension-module"]
 profile = "release"
-auditwheel = "repair"
 
 [tool.uv]
 default-groups = "all"
