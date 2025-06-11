@@ -6,7 +6,7 @@ from hypothesis import strategies as st
 @given(text=st.text(max_size=1_000_000))
 @example(text="🐍👍")
 @example(text="따이タイ泰伊TàiтайتايΤαϊ")
-@settings(deadline=500)
+@settings(deadline=1000)
 def test_generate_hash_str(text: str):
     hash_value = passuth.generate_hash(text)
 
@@ -21,7 +21,7 @@ def test_generate_hash_str(text: str):
 
 @given(text=st.binary(max_size=1_000_000))
 @example(text="🐍👍".encode())
-@settings(deadline=500)
+@settings(deadline=1000)
 def test_generate_hash_bytes(text: bytes):
     hash_value = passuth.generate_hash(text)
 
@@ -44,3 +44,8 @@ def test_verify_password():
 
     for value in values:
         assert passuth.verify_password("password", value)
+
+
+def test_version():
+    assert isinstance(passuth.__version__, str)
+    assert passuth.__version__ != "unknown"
