@@ -22,6 +22,8 @@ build-backend = "maturin"
 [tool.maturin]
 python-source = "python"
 features = ["pyo3/extension-module"]
+profile = "release"
+auditwheel = "repair"
 
 [tool.uv]
 default-groups = "all"

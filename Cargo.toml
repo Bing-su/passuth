@@ -9,4 +9,16 @@ name = "passuth"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = "*"
+pyo3 = { version = "*", features = [
+    "extension-module",
+    "abi3-py39",
+    "generate-import-lib",
+] }
+password-auth = { version = "*", features = ["pbkdf2", "scrypt"] }
+
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
+opt-level = "z"
+panic = "abort"
