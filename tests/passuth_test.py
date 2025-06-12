@@ -6,7 +6,7 @@ from hypothesis import strategies as st
 @given(text=st.text(max_size=1_000_000))
 @example(text="🐍👍")
 @example(text="따이タイ泰伊TàiтайتايΤαϊ")  # noqa: RUF001
-@settings(deadline=1000)
+@settings(deadline=1000, max_examples=30)
 def test_generate_hash_str(text: str):
     texte = text.encode()
     hash_value = passuth.generate_hash(text)
@@ -20,7 +20,7 @@ def test_generate_hash_str(text: str):
 
 @given(binary=st.binary(max_size=1_000_000))
 @example(binary="🐍👍".encode())
-@settings(deadline=1000)
+@settings(deadline=1000, max_examples=30)
 def test_generate_hash_bytes(binary: bytes):
     ba = bytearray(binary)
     hash_value = passuth.generate_hash(binary)

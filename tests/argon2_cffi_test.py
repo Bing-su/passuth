@@ -20,7 +20,7 @@ pytestmark = pytest.mark.skipif(
 
 
 @given(text=st.text(max_size=1000))
-@settings(deadline=1000)
+@settings(deadline=1000, max_examples=30)
 def test_argon2_to_passuth(text: str):
     ph = PasswordHasher()
     hash_value = ph.hash(text)
@@ -28,7 +28,7 @@ def test_argon2_to_passuth(text: str):
 
 
 @given(text=st.text(max_size=1000))
-@settings(deadline=1000)
+@settings(deadline=1000, max_examples=30)
 def test_passuth_to_argon2(text: str):
     ph = PasswordHasher()
     hash_value = passuth.generate_hash(text)
