@@ -5,33 +5,31 @@ from hypothesis import strategies as st
 
 @given(text=st.text(max_size=1_000_000))
 @example(text="🐍👍")
-@example(text="따이タイ泰伊TàiтайتايΤαϊ")
+@example(text="따이タイ泰伊TàiтайتايΤαϊ")  # noqa: RUF001
 @settings(deadline=1000)
 def test_generate_hash_str(text: str):
+    texte = text.encode()
     hash_value = passuth.generate_hash(text)
+    hash_value2 = passuth.generate_hash(texte)
 
     assert isinstance(hash_value, str)
     assert passuth.verify_password(text, hash_value)
-
-    text2 = text.encode()
-    hash_value2 = passuth.generate_hash(text2)
-    assert isinstance(hash_value2, str)
-    assert passuth.verify_password(text2, hash_value)
+    assert passuth.verify_password(texte, hash_value)
+    assert passuth.verify_password(text, hash_value2)
 
 
-@given(text=st.binary(max_size=1_000_000))
-@example(text="🐍👍".encode())
+@given(binary=st.binary(max_size=1_000_000))
+@example(binary="🐍👍".encode())
 @settings(deadline=1000)
-def test_generate_hash_bytes(text: bytes):
-    hash_value = passuth.generate_hash(text)
+def test_generate_hash_bytes(binary: bytes):
+    ba = bytearray(binary)
+    hash_value = passuth.generate_hash(binary)
+    hash_value2 = passuth.generate_hash(ba)
 
     assert isinstance(hash_value, str)
-    assert passuth.verify_password(text, hash_value)
-
-    text2 = bytearray(text)
-    hash_value2 = passuth.generate_hash(text2)
-    assert isinstance(hash_value2, str)
-    assert passuth.verify_password(text2, hash_value)
+    assert passuth.verify_password(binary, hash_value)
+    assert passuth.verify_password(ba, hash_value)
+    assert passuth.verify_password(binary, hash_value2)
 
 
 def test_verify_password():

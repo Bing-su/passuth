@@ -15,7 +15,7 @@ keywords = ["password", "argon2"]
 dependencies = []
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-pretty", "hypothesis"]
+test = ["pytest", "pytest-pretty", "hypothesis", "argon2-cffi"]
 
 [project.urls]
 source = "https://github.com/Bing-su/passuth"
