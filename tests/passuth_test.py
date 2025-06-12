@@ -23,12 +23,15 @@ def test_generate_hash_str(text: str):
 @settings(deadline=1000, max_examples=30)
 def test_generate_hash_bytes(binary: bytes):
     ba = bytearray(binary)
+    mv = memoryview(binary)
     hash_value = passuth.generate_hash(binary)
     hash_value2 = passuth.generate_hash(ba)
+    _ = passuth.generate_hash(mv)
 
     assert isinstance(hash_value, str)
     assert passuth.verify_password(binary, hash_value)
     assert passuth.verify_password(ba, hash_value)
+    assert passuth.verify_password(mv, hash_value)
     assert passuth.verify_password(binary, hash_value2)
 
 

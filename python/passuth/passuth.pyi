@@ -1,13 +1,13 @@
 __version__: str
 
-def generate_hash(password: str | bytes | bytearray) -> str:
+def generate_hash(password: str | bytes | bytearray | memoryview) -> str:
     """
     Generate a secure hash for the given password.
 
     Parameters
     ----------
-    password : str or bytes or bytearray
-        The password to hash. Can be a string, bytes, or bytearray.
+    password : str or bytes or bytearray or memoryview
+        The password to hash. Can be a string, bytes, bytearray, or memoryview.
 
     Returns
     -------
@@ -25,14 +25,14 @@ def generate_hash(password: str | bytes | bytearray) -> str:
     $argon2id$v=19$m=19456,t=2,p=1$XQg6P4WkudV3JaMDy7FFzg$BlfZxjgjE6YdCEIePJVLNREjNp5QkLMnfEKdqR2Dypo  # the actual hash will differ each time due to the random salt
     """
 
-def verify_password(password: str | bytes | bytearray, hash: str) -> bool:  # noqa: A002
+def verify_password(password: str | bytes | bytearray | memoryview, hash: str) -> bool:  # noqa: A002
     """
     Verify a password against a given hash.
 
     Parameters
     ----------
-    password : str or bytes or bytearray
-        The password to verify. Can be a string, bytes, or bytearray.
+    password : str or bytes or bytearray or memoryview
+        The password to verify. Can be a string, bytes, bytearray, or memoryview.
     hash : str
         The hash to verify the password against.
 
