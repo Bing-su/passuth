@@ -31,7 +31,7 @@ fn get_version() -> PyResult<String> {
     Python::with_gil(|py| {
         let metadata = PyModule::import(py, "importlib.metadata")?;
         let version = metadata.getattr("version")?.call1(("passuth",))?;
-        Ok(version.extract()?)
+        version.extract()
     })
 }
 
