@@ -51,6 +51,7 @@ jobs:
     steps:
       - uses: hustcer/setup-nu@v3
       - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
       - uses: astral-sh/setup-uv@v6
 
       - name: Build sdist
