@@ -32,6 +32,8 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v3.0
 
+      - run: ls wheelhouse
+
       - uses: actions/upload-artifact@v4
         with:
           name: wheels-${{ matrix.os }}-${{ strategy.job-index }}
@@ -56,6 +58,8 @@ jobs:
 
       - name: Build sdist
         run: uv build --sdist
+
+      - run: ls dist
 
       - uses: actions/upload-artifact@v4
         with:
@@ -82,5 +86,7 @@ jobs:
           path: dist
           merge-multiple: true
 
+      - run: ls dist
+
       - name: Publish to PyPI
-        run: uv publish -v
+        run: uv publish -v --trusted-publishing always
