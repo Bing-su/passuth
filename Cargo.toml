@@ -23,6 +23,7 @@ password-auth = { version = "*", features = ["argon2", "pbkdf2", "scrypt"] }
 [profile.release]
 strip = true
 lto = true
-codegen-units = 1
-opt-level = "z"
+opt-level = 3
 panic = "abort"
+split-debuginfo = "packed"
+codegen-units = 1
