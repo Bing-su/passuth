@@ -74,3 +74,18 @@ unfixable = ["F401"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*_test.py" = ["S101"]
+
+[tool.cibuildwheel]
+build-frontend = "build[uv]"
+test-extras = ["test"]
+test-command = "pytest -n 2 {project}/tests"
+test-skip = "cp31*t-"
+
+[tool.cibuildwheel.macos]
+archs = ["universal2"]
+
+[tool.cibuildwheel.linux]
+archs = ["auto64"]
+
+[tool.cibuildwheel.windows]
+archs = ["auto64"]
