@@ -15,7 +15,13 @@ keywords = ["password", "argon2"]
 dependencies = []
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-pretty", "pytest-xdist", "hypothesis", "argon2-cffi"]
+test = [
+    "pytest",
+    "pytest-pretty",
+    "pytest-xdist",
+    "hypothesis",
+    "argon2-cffi; python_version < '3.13'",
+]
 
 [project.urls]
 source = "https://github.com/Bing-su/passuth"
@@ -79,7 +85,6 @@ unfixable = ["F401"]
 build-frontend = "build[uv]"
 test-extras = ["test"]
 test-command = "pytest -n 2 {project}/tests"
-test-skip = "cp31*t-"
 enable = ["cpython-freethreading", "pypy"]
 
 [tool.cibuildwheel.macos]
