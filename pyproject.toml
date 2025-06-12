@@ -85,7 +85,7 @@ unfixable = ["F401"]
 build-frontend = "build[uv]"
 test-extras = ["test"]
 test-command = "pytest -n 2 {project}/tests"
-enable = ["cpython-freethreading", "pypy"]
+enable = ["cpython-freethreading"]
 
 [tool.cibuildwheel.macos]
 before-build = "rustup target add x86_64-apple-darwin"
