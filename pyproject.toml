@@ -95,6 +95,11 @@ archs = ["universal2"]
 MACOSX_DEPLOYMENT_TARGET = "10.15"
 
 [tool.cibuildwheel.linux]
+before-build = [
+    "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y",
+    ". $HOME/.cargo/env",
+    "rustup target add x86_64-unknown-linux-gnu aarch64-unknown-linux-gnu x86_64-unknown-linux-musl aarch64-unknown-linux-musl",
+]
 archs = ["auto64"]
 
 [tool.cibuildwheel.windows]
