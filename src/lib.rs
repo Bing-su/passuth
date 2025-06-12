@@ -7,20 +7,23 @@ enum StrOrBytes {
     Bytes(Vec<u8>),
 }
 
-#[pyfunction]
-fn generate_hash(password: StrOrBytes) -> String {
-    match password {
-        StrOrBytes::Str(s) => password_auth::generate_hash(&s),
-        StrOrBytes::Bytes(b) => password_auth::generate_hash(&b),
+impl AsRef<[u8]> for StrOrBytes {
+    fn as_ref(&self) -> &[u8] {
+        match self {
+            StrOrBytes::Str(s) => s.as_bytes(),
+            StrOrBytes::Bytes(b) => b,
+        }
     }
 }
 
 #[pyfunction]
+fn generate_hash(password: StrOrBytes) -> String {
+    password_auth::generate_hash(&password)
+}
+
+#[pyfunction]
 fn verify_password(password: StrOrBytes, hash: String) -> bool {
-    let result = match password {
-        StrOrBytes::Str(s) => password_auth::verify_password(&s, &hash),
-        StrOrBytes::Bytes(b) => password_auth::verify_password(&b, &hash),
-    };
+    let result = password_auth::verify_password(&password, &hash);
     result.is_ok()
 }
 
