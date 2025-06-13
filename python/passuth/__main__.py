@@ -34,9 +34,9 @@ def main():
 
     args = parser.parse_args()
     if args.command == "generate":
-        print(generate_hash(args.password))
+        print(generate_hash(args.password))  # noqa: T201
     elif args.command == "verify":
-        print("true" if verify_password(args.password, args.hash) else "false")
+        print("true" if verify_password(args.password, args.hash) else "false")  # noqa: T201
     else:
         parser.print_help()
 
