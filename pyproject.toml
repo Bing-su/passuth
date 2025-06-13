@@ -1,6 +1,6 @@
 [project]
 name = "passuth"
-version = "0.1.0"
+version = "0.2.0-dev.0"
 authors = [{ name = "Dowon", email = "ks2515@naver.com" }]
 license = "MIT"
 requires-python = ">=3.9"
@@ -85,7 +85,7 @@ unfixable = ["F401"]
 build-frontend = "build[uv]"
 test-extras = ["test"]
 test-command = "pytest -n 2 {project}/tests"
-enable = ["cpython-freethreading"]
+enable = ["cpython-freethreading", "pypy"]
 
 [tool.cibuildwheel.macos]
 before-build = "rustup target add x86_64-apple-darwin"
