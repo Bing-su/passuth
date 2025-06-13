@@ -89,7 +89,7 @@ enable = ["cpython-freethreading", "pypy"]
 
 [tool.cibuildwheel.macos]
 before-build = "rustup target add x86_64-apple-darwin"
-archs = ["universal2"]
+archs = ["x86_64", "arm64"]
 
 [tool.cibuildwheel.macos.environment]
 MACOSX_DEPLOYMENT_TARGET = "10.15"
