@@ -15,6 +15,9 @@ on:
   workflow_dispatch:
   workflow_call:
 
+env:
+  COLUMNS: 120
+
 jobs:
   test:
     name: Pytest
@@ -32,9 +35,6 @@ jobs:
       run:
         shell: nu {0}
 
-    env:
-      COLUMNS: 120
-
     steps:
       - uses: hustcer/setup-nu@v3
       - uses: actions/checkout@v4
@@ -43,5 +43,5 @@ jobs:
 
       - name: Test on ${{ matrix.os }}
         run: |
-          let versions = ["3.9", "3.10", "3.11", "3.12", "3.13"]
+          let versions = ["3.9", "3.10", "3.11", "3.12", "3.13", "pypy3.11"]
           $versions | each { |version| uv run --all-extras --managed-python --python $version pytest -n 2 }
