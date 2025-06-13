@@ -17,14 +17,13 @@ impl AsRef<[u8]> for StrOrBytes {
 }
 
 #[pyfunction]
-fn generate_hash(password: StrOrBytes) -> String {
-    password_auth::generate_hash(&password)
+fn generate_hash(py: Python<'_>, password: StrOrBytes) -> String {
+    py.allow_threads(|| password_auth::generate_hash(&password))
 }
 
 #[pyfunction]
-fn verify_password(password: StrOrBytes, hash: String) -> bool {
-    let result = password_auth::verify_password(&password, &hash);
-    result.is_ok()
+fn verify_password(py: Python<'_>, password: StrOrBytes, hash: String) -> bool {
+    py.allow_threads(|| password_auth::verify_password(&password, &hash).is_ok())
 }
 
 fn get_version() -> PyResult<String> {
