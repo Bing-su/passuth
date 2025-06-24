@@ -2,6 +2,7 @@ use fernet;
 use password_auth;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
+use pyo3::types::PyType;
 
 #[derive(FromPyObject)]
 enum StrOrBytes {
@@ -38,8 +39,8 @@ struct Fernet {
 
 impl std::fmt::Display for Fernet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut secret_str = self.key.chars().take(16).collect::<String>();
-        secret_str.push_str("****************");
+        let mut secret_str = self.key.chars().take(8).collect::<String>();
+        secret_str.push_str("************************");
         write!(f, "Fernet(key={})", secret_str)
     }
 }
@@ -47,10 +48,19 @@ impl std::fmt::Display for Fernet {
 #[pymethods]
 impl Fernet {
     #[new]
-    fn new(key: String) -> PyResult<Self> {
+    fn py_new(key: String) -> PyResult<Self> {
         match fernet::Fernet::new(&key) {
             Some(fnt) => Ok(Self { key, fnt }),
             None => Err(PyValueError::new_err("Invalid Fernet key")),
+        }
+    }
+
+    #[classmethod]
+    fn new(_cls: Bound<'_, PyType>) -> Self {
+        let key = Self::generate_key();
+        Self {
+            key: key.clone(),
+            fnt: fernet::Fernet::new(&key).expect("Always valid key"),
         }
     }
 

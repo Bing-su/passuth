@@ -17,7 +17,7 @@ def test_fernet_encrypt_decrypt(text: str):
 
 @given(binary=st.binary(max_size=1_000_000))
 def test_fernet_encrypt_decrypt_bytes(binary: bytes):
-    fernet = Fernet(Fernet.generate_key())
+    fernet = Fernet.new()
     encrypted = fernet.encrypt(binary)
     decrypted = fernet.decrypt(encrypted)
 
@@ -37,7 +37,7 @@ def test_fernet_pickle():
 
 
 def test_fernet_copy():
-    fernet = Fernet(Fernet.generate_key())
+    fernet = Fernet.new()
     encrypted = fernet.encrypt("Hello, World!")
 
     copied_fernet = copy.copy(fernet)
@@ -57,5 +57,5 @@ def test_fernet_deepcopy():
 
 
 def test_fernet_repr():
-    fernet = Fernet(Fernet.generate_key())
+    fernet = Fernet.new()
     assert repr(fernet).startswith("Fernet(key=")

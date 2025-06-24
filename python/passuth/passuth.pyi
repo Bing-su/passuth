@@ -54,6 +54,17 @@ def verify_password(password: str | bytes | bytearray | memoryview, hash: str) -
 
 class Fernet:
     def __init__(self, key: str) -> None: ...
+    @classmethod
+    def new(cls) -> Fernet:
+        """
+        Create a new Fernet instance with a randomly generated key.
+        Shorthand for `Fernet(Fernet.generate_key())`.
+
+        Returns
+        -------
+        Self
+            A new Fernet instance.
+        """
     @staticmethod
     def generate_key() -> str:
         """
