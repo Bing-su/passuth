@@ -51,3 +51,44 @@ def verify_password(password: str | bytes | bytearray | memoryview, hash: str) -
     >>> verify_password("wrongpassword", hash)
     False
     """
+
+class Fernet:
+    def __init__(self, key: str) -> None: ...
+    @staticmethod
+    def generate_key() -> str:
+        """
+        Generate a new Fernet key.
+
+        Returns
+        -------
+        str
+            The generated key as a string.
+        """
+    def encrypt(self, data: str | bytes | bytearray | memoryview) -> str:
+        """
+        Encrypt data using the Fernet key.
+
+        Parameters
+        ----------
+        data : str or bytes or bytearray or memoryview
+            The data to encrypt.
+
+        Returns
+        -------
+        str
+            The encrypted data as a string.
+        """
+    def decrypt(self, token: str) -> bytes:
+        """
+        Decrypt data using the Fernet key.
+
+        Parameters
+        ----------
+        token : str
+            The encrypted data to decrypt.
+
+        Returns
+        -------
+        bytes
+            The decrypted data.
+        """
