@@ -79,3 +79,14 @@ def test_fernet_deepcopy():
 def test_fernet_repr():
     fernet = Fernet.new()
     assert repr(fernet).startswith("Fernet(key=")
+
+
+def test_fernet_init_with_invalid_key():
+    with pytest.raises(ValueError, match="Invalid"):
+        Fernet("invalid_key")
+
+
+def test_fernet_decrypt_with_invalid_token():
+    f = Fernet.new()
+    with pytest.raises(ValueError, match="Fernet decryption error"):
+        f.decrypt("invalid_token")
