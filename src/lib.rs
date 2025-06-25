@@ -40,7 +40,7 @@ struct Fernet {
 impl std::fmt::Display for Fernet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut secret_str = self.key.chars().take(8).collect::<String>();
-        secret_str.push_str("************************");
+        secret_str.push_str("*".repeat(24).as_str());
         write!(f, "Fernet(key={})", secret_str)
     }
 }
@@ -69,14 +69,16 @@ impl Fernet {
         fernet::Fernet::generate_key()
     }
 
-    fn encrypt(&self, data: StrOrBytes) -> String {
-        self.fnt.encrypt(data.as_ref())
+    fn encrypt(&self, py: Python<'_>, data: StrOrBytes) -> String {
+        py.allow_threads(|| self.fnt.encrypt(data.as_ref()))
     }
 
-    fn decrypt(&self, token: String) -> PyResult<Vec<u8>> {
-        self.fnt
-            .decrypt(&token)
-            .map_err(|e| PyValueError::new_err(e.to_string()))
+    fn decrypt(&self, py: Python<'_>, token: String) -> PyResult<Vec<u8>> {
+        py.allow_threads(|| {
+            self.fnt
+                .decrypt(&token)
+                .map_err(|e| PyValueError::new_err(e.to_string()))
+        })
     }
 
     fn __getnewargs__(&self) -> (String,) {
