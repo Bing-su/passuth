@@ -53,6 +53,19 @@ def verify_password(password: str | bytes | bytearray | memoryview, hash: str) -
     """
 
 class Fernet:
+    """
+    Fernet symmetric encryption class.
+
+    Examples
+    --------
+    >>> from passuth import Fernet
+    >>> f = Fernet.new()
+    >>> token = f.encrypt("my secret data")
+    >>> data = f.decrypt(token)
+    >>> print(data)
+    b'my secret data'
+    """
+
     def __init__(self, key: str) -> None: ...
     @classmethod
     def new(cls) -> Fernet:
