@@ -1,7 +1,9 @@
 import copy
 import pickle
+import platform
 
 import jsonpickle
+import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 from passuth import Fernet
@@ -39,6 +41,9 @@ def test_fernet_pickle():
     assert decrypted == TXT
 
 
+@pytest.mark.xfail(
+    condition=platform.python_implementation() == "PyPy", reason="PyPy pickling issue"
+)
 def test_fernet_jsonpickle():
     fernet = Fernet.new()
     encrypted = fernet.encrypt(TXT)
