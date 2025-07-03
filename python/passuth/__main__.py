@@ -6,29 +6,34 @@ from passuth import generate_hash, verify_password
 def main():
     parser = argparse.ArgumentParser(description="Generate or verify password hashes.")
     subparsers = parser.add_subparsers(title="command", dest="command")
+
     generate_parser = subparsers.add_parser(
         "generate",
-        help="Generate a hash for the provided password. usage: passuth generate <password>",
+        help="Generate a hash for the provided password.",
         description="Generate a hash for the provided password.",
     )
     generate_parser.add_argument(
         "password",
         type=str,
+        metavar="<password>",
         help="The password to hash",
     )
+
     verify_parser = subparsers.add_parser(
         "verify",
-        help="Verify a password against a hash. usage: passuth verify <password> <hash>",
+        help="Verify a password against a hash.",
         description="Verify a password against a hash.",
     )
     verify_parser.add_argument(
         "password",
         type=str,
-        help="The password to verify",
+        metavar="<password>",
+        help="The password to verify.",
     )
     verify_parser.add_argument(
         "hash",
         type=str,
+        metavar="<hash>",
         help="The hash to verify the password against.",
     )
 
