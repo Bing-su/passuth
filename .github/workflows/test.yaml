@@ -43,5 +43,5 @@ jobs:
 
       - name: Test on ${{ matrix.os }}
         run: |
-          let versions = ["3.9", "3.10", "3.11", "3.12", "3.13", "pypy3.11"]
+          let versions = ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14", "pypy3.11"]
           $versions | each { |version| uv run --all-extras --managed-python --python $version pytest -n 2 }
