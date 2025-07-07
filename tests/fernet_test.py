@@ -42,7 +42,8 @@ def test_fernet_pickle():
 
 
 @pytest.mark.xfail(
-    condition=platform.python_implementation() == "PyPy", reason="PyPy pickling issue"
+    condition=platform.python_implementation() == "PyPy",
+    reason="pypy + jsonpickle issue",
 )
 def test_fernet_jsonpickle():
     fernet = Fernet.new()
@@ -90,3 +91,33 @@ def test_fernet_decrypt_with_invalid_token():
     f = Fernet.new()
     with pytest.raises(ValueError, match="Fernet decryption error"):
         f.decrypt("invalid_token")
+
+
+@given(text=st.text(max_size=1_000_000))
+def test_cryptography_to_fernet(text: str):
+    pytest.importorskip("cryptography")
+    from cryptography.fernet import Fernet as CFernet  # noqa: PLC0415
+
+    key = CFernet.generate_key()
+    cryptography_fernet = CFernet(key)
+    passuth_fernet = Fernet(key.decode())
+
+    encoded = cryptography_fernet.encrypt(text.encode())
+    decoded = passuth_fernet.decrypt(encoded.decode()).decode()
+
+    assert decoded == text
+
+
+@given(text=st.text(max_size=1_000_000))
+def test_fernet_to_cryptography(text: str):
+    pytest.importorskip("cryptography")
+    from cryptography.fernet import Fernet as CFernet  # noqa: PLC0415
+
+    key = Fernet.generate_key()
+    cryptography_fernet = CFernet(key)
+    passuth_fernet = Fernet(key)
+
+    encoded = passuth_fernet.encrypt(text)
+    decoded = cryptography_fernet.decrypt(encoded).decode()
+
+    assert decoded == text

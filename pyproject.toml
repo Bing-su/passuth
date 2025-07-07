@@ -22,6 +22,7 @@ test = [
     "pytest-xdist",
     "hypothesis",
     "argon2-cffi; python_version < '3.13'",
+    "cryptography; python_version < '3.13'",
     "jsonpickle",
 ]
 
