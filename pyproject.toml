@@ -22,7 +22,7 @@ test = [
     "pytest-xdist",
     "hypothesis",
     "argon2-cffi; python_version < '3.13'",
-    "cryptography; python_version < '3.13'",
+    "cryptography; python_version < '3.13' and (platform_machine != 'ARM64' or sys_platform != 'win32')",
     "jsonpickle",
 ]
 
@@ -84,10 +84,10 @@ unfixable = ["F401"]
 "tests/*_test.py" = ["S101"]
 
 [tool.cibuildwheel]
-build-frontend = "build[uv]"
+build-frontend = "build"
 test-extras = ["test"]
 test-command = "pytest -n 2 {project}/tests"
-enable = ["cpython-freethreading", "pypy"]
+enable = ["cpython-freethreading", "pypy", "cpython-experimental-riscv64"]
 
 [tool.cibuildwheel.macos]
 before-build = "rustup target add x86_64-apple-darwin"
@@ -105,7 +105,7 @@ archs = ["auto64"]
 
 [tool.cibuildwheel.linux.environment]
 MATURIN_NO_INSTALL_RUST = "1"
-PATH = "$HOME/.cargo/bin:$PATH"
+PATH = "$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 
 [tool.cibuildwheel.windows]
 archs = ["auto64"]
