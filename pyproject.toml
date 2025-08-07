@@ -2,6 +2,7 @@
 name = "passuth"
 authors = [{ name = "Dowon", email = "ks2515@naver.com" }]
 description = "A python package wrapping 'password-auth' rust crate for password hashing and verification."
+readme = "README.md"
 license = "MIT"
 requires-python = ">=3.9"
 classifiers = [
