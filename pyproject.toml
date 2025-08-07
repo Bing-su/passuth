@@ -16,15 +16,8 @@ dependencies = []
 dynamic = ["version"]
 
 [project.optional-dependencies]
-test = [
-    "pytest",
-    "pytest-pretty",
-    "pytest-xdist",
-    "hypothesis",
-    "argon2-cffi; python_version < '3.13'",
-    "cryptography; python_version < '3.13' and (platform_machine != 'ARM64' or sys_platform != 'win32')",
-    "jsonpickle",
-]
+test = ["pytest", "pytest-pretty", "pytest-xdist", "hypothesis", "jsonpickle"]
+test-extra = ["argon2-cffi", "cryptography"]
 
 [project.urls]
 source = "https://github.com/Bing-su/passuth"
@@ -33,7 +26,7 @@ source = "https://github.com/Bing-su/passuth"
 passuth = "passuth.__main__:main"
 
 [dependency-groups]
-dev = ["ruff", "pre-commit-uv"]
+dev = ["ruff", "nox[uv]"]
 
 [build-system]
 requires = ["maturin>=1.8,<2.0"]
