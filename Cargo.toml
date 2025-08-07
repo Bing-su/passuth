@@ -1,6 +1,6 @@
 [package]
 name = "passuth"
-version = "0.3.0-dev.1"
+version = "0.3.0"
 edition = "2024"
 repository = "https://github.com/Bing-su/passuth"
 license = "MIT"
