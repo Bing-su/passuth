@@ -29,7 +29,7 @@ passuth = "passuth.__main__:main"
 dev = ["ruff", "nox[uv]"]
 
 [build-system]
-requires = ["maturin>=1.8,<2.0"]
+requires = ["maturin>=1.9,<2.0"]
 build-backend = "maturin"
 
 [tool.maturin]
@@ -77,10 +77,12 @@ unfixable = ["F401"]
 "tests/*_test.py" = ["S101"]
 
 [tool.cibuildwheel]
-build-frontend = "build"
+build-frontend = "build[uv]"
+skip = ["*-musllinux_riscv64"]
 test-extras = ["test"]
 test-command = "pytest -n 2 {project}/tests"
-enable = ["cpython-freethreading", "pypy", "cpython-experimental-riscv64"]
+test-skip = ["*_riscv64"]
+enable = ["cpython-freethreading", "pypy"]
 
 [tool.cibuildwheel.macos]
 before-build = "rustup target add x86_64-apple-darwin"
