@@ -19,12 +19,12 @@ impl AsRef<[u8]> for StrOrBytes {
 
 #[pyfunction]
 fn generate_hash(py: Python<'_>, password: StrOrBytes) -> String {
-    py.allow_threads(|| password_auth::generate_hash(&password))
+    py.detach(|| password_auth::generate_hash(&password))
 }
 
 #[pyfunction]
-fn verify_password(py: Python<'_>, password: StrOrBytes, hash: String) -> bool {
-    py.allow_threads(|| password_auth::verify_password(&password, &hash).is_ok())
+fn verify_password(py: Python<'_>, password: StrOrBytes, hash: &str) -> bool {
+    py.detach(|| password_auth::verify_password(&password, hash).is_ok())
 }
 
 #[pyclass(module = "passuth.passuth", str)]
@@ -68,11 +68,11 @@ impl Fernet {
     }
 
     fn encrypt(&self, py: Python<'_>, data: StrOrBytes) -> String {
-        py.allow_threads(|| self.fnt.encrypt(data.as_ref()))
+        py.detach(|| self.fnt.encrypt(data.as_ref()))
     }
 
     fn decrypt(&self, py: Python<'_>, token: String) -> PyResult<Vec<u8>> {
-        py.allow_threads(|| {
+        py.detach(|| {
             self.fnt
                 .decrypt(&token)
                 .map_err(|e| PyValueError::new_err(e.to_string()))

@@ -13,7 +13,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 fernet = { version = "*", features = ["rustcrypto"], default-features = false }
-pyo3 = { version = "*", features = [
+pyo3 = { version = "0.26", features = [
     "extension-module",
     "abi3-py39",
     "generate-import-lib",
