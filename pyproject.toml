@@ -79,11 +79,11 @@ unfixable = ["F401"]
 
 [tool.cibuildwheel]
 build-frontend = "build[uv]"
-skip = ["*-musllinux_riscv64"]
+skip = ["*-musllinux_riscv64", "gp*-win*"]
 test-extras = ["test"]
 test-command = "pytest -n 2 {project}/tests"
 test-skip = ["*_riscv64"]
-enable = ["cpython-freethreading", "pypy"]
+enable = ["pypy", "graalpy"]
 
 [tool.cibuildwheel.macos]
 before-build = "rustup target add x86_64-apple-darwin"
