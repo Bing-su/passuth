@@ -78,8 +78,8 @@ unfixable = ["F401"]
 "tests/*_test.py" = ["S101"]
 
 [tool.cibuildwheel]
-build-frontend = "build[uv]"
-skip = ["*-musllinux_riscv64", "gp*-win*"]
+build-frontend = "build"
+skip = ["gp*-win*"]
 test-extras = ["test"]
 test-command = "pytest -n 2 {project}/tests"
 test-skip = ["*_riscv64"]
