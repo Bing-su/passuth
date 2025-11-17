@@ -50,7 +50,7 @@ jobs:
           'CIBW_ARCHS=${{ matrix.archs }}' | save -a $env.GITHUB_ENV
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.2
+        uses: pypa/cibuildwheel@v3.3
 
       - run: ls wheelhouse
 
