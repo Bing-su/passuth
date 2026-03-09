@@ -36,7 +36,7 @@ jobs:
       - uses: hustcer/setup-nu@v3
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@stable
-      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-qemu-action@v4
         if: runner.os == 'Linux'
       - uses: astral-sh/setup-uv@v7
 
@@ -50,7 +50,7 @@ jobs:
           'CIBW_ARCHS=${{ matrix.archs }}' | save -a $env.GITHUB_ENV
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.3
+        uses: pypa/cibuildwheel@v3.4
 
       - run: ls wheelhouse
 
