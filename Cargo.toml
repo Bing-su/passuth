@@ -14,7 +14,7 @@ name = "passuth"
 [dependencies]
 fernet = { version = "*", default-features = false, features = ["rustcrypto"] }
 password-auth = { version = "1", features = ["argon2", "pbkdf2", "scrypt"] }
-pyo3 = { version = ">=0.27, <1", features = [
+pyo3 = { version = ">=0.28, <1", features = [
   "abi3-py39",
   "extension-module",
   "generate-import-lib",

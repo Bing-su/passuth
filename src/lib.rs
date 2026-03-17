@@ -27,7 +27,7 @@ fn verify_password(py: Python<'_>, password: StrOrBytes, hash: &str) -> bool {
     py.detach(|| password_auth::verify_password(&password, hash).is_ok())
 }
 
-#[pyclass(module = "passuth.passuth", str)]
+#[pyclass(module = "passuth.passuth", str, skip_from_py_object)]
 #[derive(Clone)]
 struct Fernet {
     // Store the key for pickling and unpickling
