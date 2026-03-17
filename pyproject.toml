@@ -29,12 +29,12 @@ test-extra = ["argon2-cffi", "cryptography"]
 dev = ["nox[uv]", "ruff"]
 
 [build-system]
-requires = ["maturin>=1.9,<2.0"]
+requires = ["maturin>=1.12,<2.0"]
 build-backend = "maturin"
 
 [tool.cibuildwheel]
 build-frontend = "build[uv]"
-skip = ["*-musllinux_riscv64", "gp*-win*"]
+skip = ["gp311*", "gp*-win*"]
 test-extras = ["test"]
 test-command = "pytest -n 2 {project}/tests"
 test-skip = ["*_riscv64"]
