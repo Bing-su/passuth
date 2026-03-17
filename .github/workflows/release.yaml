@@ -93,6 +93,7 @@ jobs:
     permissions:
       id-token: write
       attestations: write
+      artifact-metadata: write
     defaults:
       run:
         shell: nu {0}
@@ -106,7 +107,7 @@ jobs:
           path: dist
           merge-multiple: true
 
-      - uses: actions/attest-build-provenance@v4
+      - uses: actions/attest@v4
         with:
           subject-path: dist/*
 
