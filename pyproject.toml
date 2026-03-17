@@ -1,24 +1,19 @@
 [project]
 name = "passuth"
-authors = [{ name = "Dowon", email = "ks2515@naver.com" }]
-description = "A python package wrapping 'password-auth' rust crate for password hashing and verification."
 readme = "README.md"
-license = "MIT"
 requires-python = ">=3.9"
+license = "MIT"
+authors = [{ name = "Dowon", email = "ks2515@naver.com" }]
+keywords = ["argon2", "encryption", "hashing", "password", "security"]
 classifiers = [
-    "Programming Language :: Rust",
-    "Programming Language :: Python :: Implementation :: CPython",
-    "Programming Language :: Python :: Implementation :: PyPy",
-    "Topic :: Security",
-    "Topic :: Security :: Cryptography",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Programming Language :: Rust",
+  "Topic :: Security",
+  "Topic :: Security :: Cryptography",
 ]
-keywords = ["password", "argon2", "security", "hashing", "encryption"]
 dependencies = []
-dynamic = ["version"]
-
-[project.optional-dependencies]
-test = ["pytest", "pytest-pretty", "pytest-xdist", "hypothesis", "jsonpickle"]
-test-extra = ["argon2-cffi", "cryptography"]
+dynamic = ["description", "version"]
 
 [project.urls]
 source = "https://github.com/Bing-su/passuth"
@@ -26,56 +21,16 @@ source = "https://github.com/Bing-su/passuth"
 [project.scripts]
 passuth = "passuth.__main__:main"
 
+[project.optional-dependencies]
+test = ["pytest", "pytest-pretty", "pytest-xdist", "hypothesis", "jsonpickle"]
+test-extra = ["argon2-cffi", "cryptography"]
+
 [dependency-groups]
-dev = ["ruff", "nox[uv]"]
+dev = ["nox[uv]", "ruff"]
 
 [build-system]
 requires = ["maturin>=1.9,<2.0"]
 build-backend = "maturin"
-
-[tool.maturin]
-python-source = "python"
-profile = "release"
-
-[tool.uv]
-default-groups = "all"
-
-[tool.ruff.lint]
-select = [
-    "A",
-    "B",
-    "C4",
-    "C90",
-    "E",
-    "EM",
-    "F",
-    "FA",
-    "FBT",
-    "FURB",
-    "I001",
-    "ISC",
-    "N",
-    "PD",
-    "PERF",
-    "PIE",
-    "PL",
-    "PT",
-    "PTH",
-    "RET",
-    "RUF",
-    "S",
-    "SIM",
-    "T20",
-    "TC",
-    "TRY",
-    "UP",
-    "W",
-]
-ignore = ["B905", "E501"]
-unfixable = ["F401"]
-
-[tool.ruff.lint.per-file-ignores]
-"tests/*_test.py" = ["S101"]
 
 [tool.cibuildwheel]
 build-frontend = "build[uv]"
@@ -94,8 +49,8 @@ MACOSX_DEPLOYMENT_TARGET = "10.15"
 
 [tool.cibuildwheel.linux]
 before-build = [
-    "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y",
-    ". $HOME/.cargo/env",
+  "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y",
+  ". $HOME/.cargo/env",
 ]
 archs = ["auto64"]
 
@@ -105,3 +60,47 @@ PATH = "$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 
 [tool.cibuildwheel.windows]
 archs = ["auto64"]
+
+[tool.maturin]
+profile = "release"
+python-source = "python"
+
+[tool.ruff.lint]
+select = [
+  "A",
+  "B",
+  "C4",
+  "C90",
+  "E",
+  "EM",
+  "F",
+  "FA",
+  "FBT",
+  "FURB",
+  "I001",
+  "ISC",
+  "N",
+  "PD",
+  "PERF",
+  "PIE",
+  "PL",
+  "PT",
+  "PTH",
+  "RET",
+  "RUF",
+  "S",
+  "SIM",
+  "T20",
+  "TC",
+  "TRY",
+  "UP",
+  "W",
+]
+ignore = ["B905", "E501"]
+unfixable = ["F401"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*_test.py" = ["S101"]
+
+[tool.uv]
+default-groups = "all"
