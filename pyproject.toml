@@ -1,7 +1,7 @@
 [project]
 name = "passuth"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "MIT"
 authors = [{ name = "Dowon", email = "ks2515@naver.com" }]
 keywords = ["argon2", "encryption", "hashing", "password", "security"]
