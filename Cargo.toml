@@ -1,6 +1,6 @@
 [package]
 name = "passuth"
-version = "0.3.2"
+version = "0.3.3"
 edition = "2024"
 description = "A python package wrapping 'password-auth' rust crate for password hashing and verification."
 repository = "https://github.com/Bing-su/passuth"

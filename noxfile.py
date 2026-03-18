@@ -3,7 +3,7 @@ import re
 
 import nox
 
-py = ["3.9", "3.14", "3.14t", "pypy3.11"]
+py = ["3.10", "3.14", "3.14t", "pypy3.11"]
 if platform.system() != "Windows":
     py.append("graalpy3.12")
 
