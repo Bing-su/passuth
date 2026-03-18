@@ -34,7 +34,7 @@ build-backend = "maturin"
 
 [tool.cibuildwheel]
 build-frontend = "build[uv]"
-skip = ["gp311*", "gp*-win*"]
+skip = ["gp311*", "gp*-win*", "*-musllinux_riscv64"]
 test-extras = ["test"]
 test-command = "pytest -n 2 {project}/tests"
 test-skip = ["*_riscv64"]
