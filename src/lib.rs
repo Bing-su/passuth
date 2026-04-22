@@ -87,7 +87,8 @@ impl Fernet {
         self.clone()
     }
 
-    fn __deepcopy__(&self, _memo: Bound<'_, PyAny>) -> Self {
+    #[allow(unused_variables)]
+    fn __deepcopy__(&self, memo: Bound<'_, PyAny>) -> Self {
         self.clone()
     }
 
@@ -97,10 +98,11 @@ impl Fernet {
 }
 
 #[pymodule(gil_used = false)]
-fn passuth(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add("__version__", env!("CARGO_PKG_VERSION"))?;
-    m.add_function(wrap_pyfunction!(generate_hash, m)?)?;
-    m.add_function(wrap_pyfunction!(verify_password, m)?)?;
-    m.add_class::<Fernet>()?;
-    Ok(())
+mod passuth {
+    #[pymodule_export]
+    #[allow(non_upper_case_globals)]
+    const __version__: &str = env!("CARGO_PKG_VERSION");
+
+    #[pymodule_export]
+    use super::{Fernet, generate_hash, verify_password};
 }
