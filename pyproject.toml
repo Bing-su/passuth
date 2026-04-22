@@ -2,7 +2,6 @@
 name = "passuth"
 readme = "README.md"
 requires-python = ">=3.10"
-license = "MIT"
 authors = [{ name = "Dowon", email = "ks2515@naver.com" }]
 keywords = ["argon2", "encryption", "hashing", "password", "security"]
 classifiers = [
@@ -13,10 +12,7 @@ classifiers = [
   "Topic :: Security :: Cryptography",
 ]
 dependencies = []
-dynamic = ["description", "version"]
-
-[project.urls]
-source = "https://github.com/Bing-su/passuth"
+dynamic = ["description", "license", "urls", "version"]
 
 [project.scripts]
 passuth = "passuth.__main__:main"
@@ -29,7 +25,7 @@ test-extra = ["argon2-cffi", "cryptography"]
 dev = ["nox[uv]", "ruff"]
 
 [build-system]
-requires = ["maturin>=1.12,<2.0"]
+requires = ["maturin>=1.13,<2.0"]
 build-backend = "maturin"
 
 [tool.cibuildwheel]
@@ -62,6 +58,7 @@ PATH = "$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
 archs = ["auto64"]
 
 [tool.maturin]
+auditwheel = "repair"
 profile = "release"
 python-source = "python"
 
