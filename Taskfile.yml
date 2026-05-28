@@ -27,5 +27,6 @@ tasks:
     deps:
       - update:cargo
       - update:pre-commit
-      - update:uv
+    cmds:
+      - task: update:uv
     desc: Update all dependencies
