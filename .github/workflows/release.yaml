@@ -16,7 +16,6 @@ jobs:
         include:
           - os: ubuntu-latest
           - os: ubuntu-24.04-riscv
-            archs: riscv64
           - os: ubuntu-24.04-arm
           - os: ubuntu-latest
             platform: android
@@ -36,8 +35,6 @@ jobs:
       - uses: hustcer/setup-nu@v3
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@stable
-      - uses: docker/setup-qemu-action@v4
-        if: runner.os == 'Linux'
       - uses: astral-sh/setup-uv@v8.2.0
 
       - name: Set CIBW_PLATFORM
