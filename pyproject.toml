@@ -22,15 +22,15 @@ test = ["pytest", "pytest-pretty", "pytest-xdist", "hypothesis", "jsonpickle"]
 test-extra = ["argon2-cffi", "cryptography"]
 
 [dependency-groups]
-dev = ["nox[uv]", "ruff"]
+dev = ["nox"]
 
 [build-system]
-requires = ["maturin>=1.13,<2.0"]
+requires = ["maturin>=1.14,<2.0"]
 build-backend = "maturin"
 
 [tool.cibuildwheel]
 build-frontend = "build[uv]"
-skip = ["gp311*", "gp*-win*", "*-musllinux_riscv64"]
+skip = ["gp*-win*", "*-musllinux_riscv64"]
 test-extras = ["test"]
 test-command = "pytest -n 2 {project}/tests"
 test-skip = ["*_riscv64"]
@@ -59,6 +59,7 @@ archs = ["auto64"]
 
 [tool.maturin]
 auditwheel = "repair"
+features = ["pyo3/abi3-py310"]
 profile = "release"
 python-source = "python"
 
