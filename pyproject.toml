@@ -30,10 +30,10 @@ build-backend = "maturin"
 
 [tool.cibuildwheel]
 build-frontend = "build[uv]"
-skip = ["gp*-win*", "*-musllinux_riscv64"]
+skip = ["gp*-win*", "*-musllinux_riscv64", "cp313-pyodide_*"]
 test-extras = ["test"]
 test-command = "pytest -n 2 {project}/tests"
-test-skip = ["*_riscv64"]
+test-skip = ["*_riscv64", "*-android_*", "*-pyodide_*"]
 enable = ["pypy", "graalpy"]
 
 [tool.cibuildwheel.macos]
