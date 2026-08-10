@@ -39,6 +39,7 @@ jobs:
       - uses: hustcer/setup-nu@v3
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
+      - uses: kunobi-ninja/kache-action@main
       - uses: astral-sh/setup-uv@v9.0.0
 
       - name: Test on ${{ matrix.os }}

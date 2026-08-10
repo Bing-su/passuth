@@ -15,10 +15,8 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-          - os: ubuntu-26.04-riscv
-            env: |-
-              CIBW_ARCHS: riscv64
-          - os: ubuntu-26.04-arm
+          - os: ubuntu-24.04-riscv
+          - os: ubuntu-24.04-arm
           - os: ubuntu-latest
             env: |-
               CIBW_PLATFORM: android
