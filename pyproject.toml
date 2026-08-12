@@ -37,7 +37,7 @@ test-skip = ["*_riscv64", "*-android_*", "*-pyodide_*"]
 enable = ["pypy", "graalpy"]
 
 [tool.cibuildwheel.macos]
-before-build = "rustup target add x86_64-apple-darwin"
+before-all = "rustup target add x86_64-apple-darwin"
 archs = ["x86_64", "arm64"]
 
 [tool.cibuildwheel.macos.environment]
