@@ -1,5 +1,6 @@
 use pyo3::prelude::*;
 
+mod aesgcm;
 mod fernet;
 
 #[derive(FromPyObject)]
@@ -34,5 +35,11 @@ mod passuth {
     const __version__: &str = env!("CARGO_PKG_VERSION");
 
     #[pymodule_export]
-    use super::{fernet::Fernet, generate_hash, verify_password};
+    use crate::{generate_hash, verify_password};
+
+    #[pymodule_export]
+    use crate::fernet::Fernet;
+
+    #[pymodule_export]
+    use crate::aesgcm::{PyAes128Gcm, PyAes256Gcm, PyNonce};
 }
