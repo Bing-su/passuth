@@ -18,16 +18,16 @@ jobs:
           - os: ubuntu-24.04-riscv
           - os: ubuntu-24.04-arm
           - os: ubuntu-latest
-            env: |-
+            env:
               CIBW_PLATFORM: android
               CIBW_ARCHS: arm64_v8a x86_64
           - os: ubuntu-latest
-            env: |-
+            env:
               CIBW_PLATFORM: pyodide
               CIBW_BEFORE_BUILD: rustup target add wasm32-unknown-emscripten
           - os: macos-latest
           # - os: macos-latest
-          #   env: |-
+          #   env:
           #     CIBW_PLATFORM: ios
           #     CIBW_BUILD_FRONTEND: build
           #     CIBW_ARCHS: arm64_iphoneos arm64_iphonesimulator
@@ -47,9 +47,9 @@ jobs:
       - name: Set env
         if: matrix.env
         run: |
-          echo $env.VARS | from yaml | items { |key, value| echo $"($key)=($value)\n" | save -a $env.GITHUB_ENV }
+          echo $env.VARS | from json | items { |key, value| echo $"($key)=($value)\n" | save -a $env.GITHUB_ENV }
         env:
-          VARS: ${{ matrix.env }}
+          VARS: ${{ toJson(matrix.env) }}
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v4.2
