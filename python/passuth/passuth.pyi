@@ -123,7 +123,10 @@ class Fernet:
             The decrypted data.
         """
 
-class Nonce: ...
+class Nonce:
+    def __bytes__(self) -> bytes: ...
+    @classmethod
+    def from_bytes(cls, data: bytes) -> Nonce: ...
 
 class Aes128Gcm:
     """
@@ -231,6 +234,126 @@ class Aes256Gcm:
     ) -> bytes:
         """
         Decrypt data using AES-256 GCM.
+
+        Parameters
+        ----------
+        nonce : Nonce
+            The nonce used during encryption.
+        ciphertext : str or bytes or bytearray or memoryview
+            The encrypted data to decrypt.
+
+        Returns
+        -------
+        bytes
+            The decrypted data.
+        """
+
+class Aes128GcmSiv:
+    """
+    AES-128 GCM-SIV symmetric encryption class.
+
+    Examples
+    --------
+    >>> from passuth import Aes128GcmSiv
+    >>> aes = Aes128GcmSiv()
+    >>> nonce = aes.nonce()
+    >>> ciphertext = aes.encrypt(nonce, "my secret data")
+    >>> plaintext = aes.decrypt(nonce, ciphertext)
+    >>> print(plaintext)
+    b'my secret data'
+    """
+
+    def __init__(self) -> None: ...
+    @staticmethod
+    def nonce() -> Nonce: ...
+    def encrypt(
+        self,
+        nonce: Nonce,
+        plaintext: str | bytes | bytearray | memoryview,
+    ) -> bytes:
+        """
+        Encrypt data using AES-128 GCM-SIV.
+
+        Parameters
+        ----------
+        nonce : Nonce
+            The nonce to use for encryption.
+        plaintext : str or bytes or bytearray or memoryview
+            The data to encrypt.
+
+
+        Returns
+        -------
+        bytes
+            The encrypted data as bytes.
+        """
+    def decrypt(
+        self,
+        nonce: Nonce,
+        ciphertext: str | bytes | bytearray | memoryview,
+    ) -> bytes:
+        """
+        Decrypt data using AES-128 GCM-SIV.
+
+        Parameters
+        ----------
+        nonce : Nonce
+            The nonce used during encryption.
+        ciphertext : str or bytes or bytearray or memoryview
+            The encrypted data to decrypt.
+
+        Returns
+        -------
+        bytes
+            The decrypted data.
+        """
+
+class Aes256GcmSiv:
+    """
+    AES-256 GCM-SIV symmetric encryption class.
+
+    Examples
+    --------
+    >>> from passuth import Aes256GcmSiv
+    >>> aes = Aes256GcmSiv()
+    >>> nonce = aes.nonce()
+    >>> ciphertext = aes.encrypt(nonce, "my secret data")
+    >>> plaintext = aes.decrypt(nonce, ciphertext)
+    >>> print(plaintext)
+    b'my secret data'
+    """
+
+    def __init__(self) -> None: ...
+    @staticmethod
+    def nonce() -> Nonce: ...
+    def encrypt(
+        self,
+        nonce: Nonce,
+        plaintext: str | bytes | bytearray | memoryview,
+    ) -> bytes:
+        """
+        Encrypt data using AES-256 GCM-SIV.
+
+        Parameters
+        ----------
+        nonce : Nonce
+            The nonce to use for encryption.
+        plaintext : str or bytes or bytearray or memoryview
+            The data to encrypt.
+
+
+        Returns
+        -------
+        bytes
+            The encrypted data as bytes.
+        """
+    def decrypt(
+        self,
+        nonce: Nonce,
+        ciphertext: str | bytes | bytearray | memoryview,
+    ) -> bytes:
+        """
+        Decrypt data using AES-256 GCM-SIV.
 
         Parameters
         ----------

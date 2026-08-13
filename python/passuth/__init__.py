@@ -1,6 +1,8 @@
 from .passuth import (
     Aes128Gcm,
+    Aes128GcmSiv,
     Aes256Gcm,
+    Aes256GcmSiv,
     Fernet,
     Nonce,
     __version__,
@@ -10,7 +12,9 @@ from .passuth import (
 
 __all__ = [
     "Aes128Gcm",
+    "Aes128GcmSiv",
     "Aes256Gcm",
+    "Aes256GcmSiv",
     "Fernet",
     "Nonce",
     "__version__",

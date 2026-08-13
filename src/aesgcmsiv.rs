@@ -1,28 +1,27 @@
-use aes_gcm::aead::{Aead, Generate, Key, KeyInit};
-use aes_gcm::aes::cipher::consts::U12;
-use aes_gcm::{Aes128Gcm, Aes256Gcm, Nonce};
+use aes_gcm_siv::aead::{Aead, Generate, Key, KeyInit};
+use aes_gcm_siv::{Aes128GcmSiv, Aes256GcmSiv, Nonce};
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 
 use crate::{PyNonce, StrOrBytes};
 
-#[pyclass(module = "passuth.passuth", name = "Aes256Gcm")]
-pub struct PyAes256Gcm {
-    aes: Aes256Gcm,
+#[pyclass(module = "passuth.passuth", name = "Aes256GcmSiv")]
+pub struct PyAes256GcmSiv {
+    aes: Aes256GcmSiv,
 }
 
 #[pymethods]
-impl PyAes256Gcm {
+impl PyAes256GcmSiv {
     #[new]
     fn py_new() -> Self {
-        let key = Key::<Aes256Gcm>::generate();
-        let cipher = Aes256Gcm::new(&key);
+        let key = Key::<Aes256GcmSiv>::generate();
+        let cipher = Aes256GcmSiv::new(&key);
         Self { aes: cipher }
     }
 
     #[staticmethod]
     fn nonce() -> PyNonce {
-        let nonce = Nonce::<U12>::generate();
+        let nonce = Nonce::generate();
         PyNonce(nonce.into())
     }
 
@@ -48,26 +47,26 @@ impl PyAes256Gcm {
     }
 
     fn __repr__(&self) -> &str {
-        "Aes256Gcm()"
+        "Aes256GcmSiv()"
     }
 }
 
-#[pyclass(module = "passuth.passuth", name = "Aes128Gcm")]
-pub struct PyAes128Gcm {
-    aes: Aes128Gcm,
+#[pyclass(module = "passuth.passuth", name = "Aes128GcmSiv")]
+pub struct PyAes128GcmSiv {
+    aes: Aes128GcmSiv,
 }
 
 #[pymethods]
-impl PyAes128Gcm {
+impl PyAes128GcmSiv {
     #[new]
     fn py_new() -> Self {
-        let key = Key::<Aes128Gcm>::generate();
-        let cipher = Aes128Gcm::new(&key);
+        let key = Key::<Aes128GcmSiv>::generate();
+        let cipher = Aes128GcmSiv::new(&key);
         Self { aes: cipher }
     }
 
     fn nonce(&self) -> PyNonce {
-        let nonce = Nonce::<U12>::generate();
+        let nonce = Nonce::generate();
         PyNonce(nonce.into())
     }
 
@@ -93,6 +92,6 @@ impl PyAes128Gcm {
     }
 
     fn __repr__(&self) -> &str {
-        "Aes128Gcm()"
+        "Aes128GcmSiv()"
     }
 }
