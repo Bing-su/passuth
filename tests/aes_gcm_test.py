@@ -112,6 +112,15 @@ def test_nonce_generation(binary: bytes):
     assert bytes(nonce) == binary
 
 
+def test_nonce_generation2():
+    nonce = Nonce.generate()
+    assert isinstance(nonce, Nonce)
+
+    b = bytes(nonce)
+    nonce2 = Nonce.from_bytes(b)
+    assert nonce == nonce2
+
+
 @given(binary=st.binary(min_size=12, max_size=12))
 def test_nonce_hashing(binary: bytes):
     nonce = Nonce.from_bytes(binary)
