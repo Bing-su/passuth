@@ -1,17 +1,23 @@
 import re
 from copy import copy, deepcopy
+from typing import Any
 
+import pytest
 from hypothesis import example, given, settings
 from hypothesis import strategies as st
 from passuth import Aes128Gcm, Aes128GcmSiv, Aes256Gcm, Aes256GcmSiv, Nonce
 
+target_classes = [Aes128Gcm, Aes256Gcm, Aes128GcmSiv, Aes256GcmSiv]
+target_class_names = [cls.__name__ for cls in target_classes]
+
 
 @given(text=st.text(max_size=1_000_000))
 @example(text="🐍👍")
 @example(text="따이タイ泰伊TàiтайتايΤαϊ")  # noqa: RUF001
 @settings(deadline=1000, max_examples=30)
-def test_aes128gcm_encrypt_decrypt_str(text: str):
-    aes = Aes128Gcm()
+@pytest.mark.parametrize("klass", target_classes, ids=target_class_names)
+def test_encrypt_decrypt_str(klass: Any, text: str):
+    aes = klass()
     nonce = aes.nonce()
     encrypted = aes.encrypt(nonce, text)
     decrypted = aes.decrypt(nonce, encrypted).decode()
@@ -22,8 +28,9 @@ def test_aes128gcm_encrypt_decrypt_str(text: str):
 @given(binary=st.binary(max_size=1_000_000))
 @example(binary="🐍👍".encode())
 @settings(deadline=1000, max_examples=30)
-def test_aes128gcm_encrypt_decrypt_bytes(binary: bytes):
-    aes = Aes128Gcm()
+@pytest.mark.parametrize("klass", target_classes, ids=target_class_names)
+def test_encrypt_decrypt_bytes(klass: Any, binary: bytes):
+    aes = klass()
     nonce = aes.nonce()
     encrypted = aes.encrypt(nonce, binary)
     decrypted = aes.decrypt(nonce, encrypted)
@@ -31,79 +38,16 @@ def test_aes128gcm_encrypt_decrypt_bytes(binary: bytes):
     assert decrypted == binary
 
 
-@given(text=st.text(max_size=1_000_000))
-@example(text="🐍👍")
-@example(text="따이タイ泰伊TàiтайتايΤαϊ")  # noqa: RUF001
-@settings(deadline=1000, max_examples=30)
-def test_aes256gcm_encrypt_decrypt_str(text: str):
-    aes = Aes256Gcm()
-    nonce = aes.nonce()
-    encrypted = aes.encrypt(nonce, text)
-    decrypted = aes.decrypt(nonce, encrypted).decode()
+@pytest.mark.parametrize("klass", target_classes, ids=target_class_names)
+def test_encrypt_decrypt_bytes_with_different_nonce(klass: Any):
+    aes = klass()
+    nonce1 = aes.nonce()
+    nonce2 = aes.nonce()
+    text = "test"
+    encrypted = aes.encrypt(nonce1, text)
 
-    assert decrypted == text
-
-
-@given(binary=st.binary(max_size=1_000_000))
-@example(binary="🐍👍".encode())
-@settings(deadline=1000, max_examples=30)
-def test_aes256gcm_encrypt_decrypt_bytes(binary: bytes):
-    aes = Aes256Gcm()
-    nonce = aes.nonce()
-    encrypted = aes.encrypt(nonce, binary)
-    decrypted = aes.decrypt(nonce, encrypted)
-
-    assert decrypted == binary
-
-
-@given(text=st.text(max_size=1_000_000))
-@example(text="🐍👍")
-@example(text="따이タイ泰伊TàiтайتايΤαϊ")  # noqa: RUF001
-@settings(deadline=1000, max_examples=30)
-def test_aes128gcmsiv_encrypt_decrypt_str(text: str):
-    aes = Aes128GcmSiv()
-    nonce = aes.nonce()
-    encrypted = aes.encrypt(nonce, text)
-    decrypted = aes.decrypt(nonce, encrypted).decode()
-
-    assert decrypted == text
-
-
-@given(binary=st.binary(max_size=1_000_000))
-@example(binary="🐍👍".encode())
-@settings(deadline=1000, max_examples=30)
-def test_aes128gcmsiv_encrypt_decrypt_bytes(binary: bytes):
-    aes = Aes128GcmSiv()
-    nonce = aes.nonce()
-    encrypted = aes.encrypt(nonce, binary)
-    decrypted = aes.decrypt(nonce, encrypted)
-
-    assert decrypted == binary
-
-
-@given(text=st.text(max_size=1_000_000))
-@example(text="🐍👍")
-@example(text="따이タイ泰伊TàiтайتايΤαϊ")  # noqa: RUF001
-@settings(deadline=1000, max_examples=30)
-def test_aes256gcmsiv_encrypt_decrypt_str(text: str):
-    aes = Aes256GcmSiv()
-    nonce = aes.nonce()
-    encrypted = aes.encrypt(nonce, text)
-    decrypted = aes.decrypt(nonce, encrypted).decode()
-
-    assert decrypted == text
-
-
-@given(binary=st.binary(max_size=1_000_000))
-@example(binary="🐍👍".encode())
-@settings(deadline=1000, max_examples=30)
-def test_aes256gcmsiv_encrypt_decrypt_bytes(binary: bytes):
-    aes = Aes256GcmSiv()
-    nonce = aes.nonce()
-    encrypted = aes.encrypt(nonce, binary)
-    decrypted = aes.decrypt(nonce, encrypted)
-
-    assert decrypted == binary
+    with pytest.raises(ValueError, match="aead::Error"):
+        aes.decrypt(nonce2, encrypted)
 
 
 @given(binary=st.binary(min_size=12, max_size=12))
