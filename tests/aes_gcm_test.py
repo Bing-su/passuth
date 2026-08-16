@@ -5,6 +5,7 @@ from typing import Any
 import pytest
 from hypothesis import example, given, settings
 from hypothesis import strategies as st
+
 from passuth import Aes128Gcm, Aes128GcmSiv, Aes256Gcm, Aes256GcmSiv, Nonce
 
 target_classes = [Aes128Gcm, Aes256Gcm, Aes128GcmSiv, Aes256GcmSiv]

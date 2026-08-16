@@ -1,6 +1,7 @@
-import passuth
 from hypothesis import example, given, settings
 from hypothesis import strategies as st
+
+import passuth
 
 
 @given(text=st.text(max_size=1_000_000))

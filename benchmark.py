@@ -1,7 +1,8 @@
 from timeit import timeit
 
-import passuth
 from argon2 import PasswordHasher
+
+import passuth
 
 text = "Test string for benchmarking the hash generation performance." * 10
 hash_value = "$argon2id$v=19$m=19456,t=2,p=1$/+ZlHx+RMYUyOybKMXuVpQ$L8lQLQCheoLndOERC+17zTGDGpcPfEtOrZCetv++KaU"

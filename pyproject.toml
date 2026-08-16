@@ -103,5 +103,8 @@ unfixable = ["F401"]
 [tool.ruff.lint.per-file-ignores]
 "tests/*_test.py" = ["S101"]
 
+[tool.ruff.lint.isort]
+known-first-party = ["passuth"]
+
 [tool.uv]
 default-groups = "all"

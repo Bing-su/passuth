@@ -1,9 +1,10 @@
 from typing import TYPE_CHECKING
 
-import passuth
 import pytest
 from hypothesis import given, settings
 from hypothesis import strategies as st
+
+import passuth
 
 if TYPE_CHECKING:
     import argon2
