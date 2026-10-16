@@ -42,7 +42,7 @@ jobs:
       - uses: hustcer/setup-nu@v3
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
-      - uses: astral-sh/setup-uv@v10.2.0
+      - uses: astral-sh/setup-uv@v10.3.0
 
       - name: Set env
         if: matrix.env
@@ -52,7 +52,7 @@ jobs:
           VARS: ${{ toJson(matrix.env) }}
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v4.2
+        uses: pypa/cibuildwheel@v4.3
 
       - run: ls wheelhouse
 
@@ -76,7 +76,7 @@ jobs:
       - uses: hustcer/setup-nu@v3
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
-      - uses: astral-sh/setup-uv@v10.2.0
+      - uses: astral-sh/setup-uv@v10.3.0
 
       - name: Build sdist
         run: uv build --sdist
