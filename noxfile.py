@@ -3,9 +3,9 @@ import re
 
 import nox
 
-py = ["3.10", "3.14", "3.14t", "pypy3.11"]
+py = ["3.12", "3.15", "3.15t", "pypy3.12"]
 if platform.system() != "Windows":
-    py.append("graalpy3.12")
+    py.append("graalpy3.13")
 
 
 @nox.session(python=py, venv_backend="uv")
