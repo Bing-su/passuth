@@ -4,7 +4,7 @@ use pyo3::types::PyType;
 
 use crate::StrOrBytes;
 
-#[pyclass(module = "passuth.passuth", str, skip_from_py_object)]
+#[pyclass(module = "passuth.passuth", str)]
 #[derive(Clone)]
 pub struct Fernet {
     // Store the key for pickling and unpickling

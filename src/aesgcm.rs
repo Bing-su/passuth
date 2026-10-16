@@ -6,14 +6,7 @@ use pyo3::prelude::*;
 
 use crate::StrOrBytes;
 
-#[pyclass(
-    module = "passuth.passuth",
-    name = "Nonce",
-    skip_from_py_object,
-    frozen,
-    eq,
-    hash
-)]
+#[pyclass(module = "passuth.passuth", name = "Nonce", frozen, eq, hash)]
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub struct PyNonce([u8; 12]);
 
@@ -55,7 +48,7 @@ impl PyNonce {
 
 macro_rules! aes_class {
     ($py:ident, $cipher:ty, $name:literal) => {
-        #[pyclass(module = "passuth.passuth", name = $name, skip_from_py_object, frozen)]
+        #[pyclass(module = "passuth.passuth", name = $name, frozen)]
         #[derive(Clone)]
         pub struct $py {
             aes: $cipher,
